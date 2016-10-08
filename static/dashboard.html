@@ -1,0 +1,39 @@
+<html ng-app="dashboardApp">
+<head>
+  <title>Prosper Dashboard</title>
+  <script src="static/third_party/jquery-2.2.2.min.js"></script>
+  <script src="static/third_party/angular.min.js"></script>
+  <script src="static/third_party/moment.min.js"></script>
+	<script src="static/third_party/d3.v4.min.js"></script>
+  <script src="static/dashboard.js"></script>
+	<link rel="stylesheet" href="static/dashboard.css" type="text/css">
+	<link rel="stylesheet" href="static/third_party/bootstrap.min.css">
+	<link rel="stylesheet" href="static/third_party/bootstrap-theme.min.css">
+</head>
+<body ng-controller="DashboardCtrl">
+  <table class="table table-hover">
+    <tr>
+      <td>Balance</td>
+      <td>{{dashboard.latestCashBalance.Value | currency}} as of {{dashboard.latestCashBalance.Timestamp | date:'EEE, M/d/yy - h:mm:ss a'}}</td>
+    </tr>
+    <tr>
+      <td>Total Value</td>
+      <td>{{dashboard.latestAccountValue.Value | currency}} as of {{dashboard.latestAccountValue.Timestamp | date:'EEE, M/d/yy - h:mm:ss a'}}</td>
+    </tr>
+    <tr>
+      <td>Notes</td>
+      <td>{{dashboard.notes.length | number}}</td>
+    </tr>
+  </table>
+  <div id="graphs">
+    <div id="cashBalanceGraph">
+      <h2>Cash Balance</h2>
+      <line-graph chart-data="dashboard.cashBalanceHistory" value-property="Value"></line-graph>
+    </div>
+    <div id="accountValueGraph">
+      <h2>Account Value</h2>
+      <line-graph chart-data="dashboard.accountValueHistory" value-property="Value"></line-graph>
+    </div>
+  </div>
+</body>
+</html>
