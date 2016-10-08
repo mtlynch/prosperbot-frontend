@@ -19,7 +19,7 @@
     <th>Status</th>
     <tr ng-repeat="note in model.notes | orderBy:'OriginationDate'" ng-class="getStatusClass(note.NoteStatus)">
       <td>
-        {{note.LoanNoteId}}
+        {{note.LoanNoteID}}
       </td>
       <td>
         {{note.ListingNumber}}
