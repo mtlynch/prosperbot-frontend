@@ -50,9 +50,9 @@ const (
 )
 
 var (
-	mockKeysErr   = errors.New("mock Keys error")
-	mockLRangeErr = errors.New("mock LRange error")
-	zeroTime      = time.Date(1, 1, 1, 0, 0, 0, 0, time.UTC)
+	errMockKeysFail   = errors.New("mock Keys error")
+	errMockLRangeFail = errors.New("mock LRange error")
+	zeroTime          = time.Date(1, 1, 1, 0, 0, 0, 0, time.UTC)
 
 	noteA = prosper.Note{
 		LoanNoteID:         "a",
@@ -77,7 +77,7 @@ func TestNotes(t *testing.T) {
 		msg          string
 	}{
 		{
-			keysErr:     mockKeysErr,
+			keysErr:     errMockKeysFail,
 			wantSuccess: false,
 			msg:         "should return error when Keys call fails",
 		},
@@ -88,7 +88,7 @@ func TestNotes(t *testing.T) {
 		},
 		{
 			matchingKeys: []string{noteIdA},
-			lrangeErrs:   []error{mockLRangeErr},
+			lrangeErrs:   []error{errMockLRangeFail},
 			wantSuccess:  false,
 			msg:          "should return error when LRange returns error",
 		},
