@@ -1,6 +1,8 @@
 package main
 
 import (
+	"flag"
+	"fmt"
 	"log"
 	"net/http"
 
@@ -16,7 +18,9 @@ func serveSingle(pattern string, filename string) {
 }
 
 func main() {
-	log.Println("starting up dashboard")
+	p := flag.Int("port", 80, "port on which to listen for web requests")
+	flag.Parse()
+	log.Printf("starting up dashboard on port %d", *p)
 
 	http.Handle("/cashBalanceHistory", account.CashBalanceHistoryHandler())
 	http.Handle("/accountValueHistory", account.AccountValueHistoryHandler())
@@ -27,5 +31,5 @@ func main() {
 	serveSingle("/", "./static/dashboard.html")
 	serveSingle("/notes", "./static/notes.html")
 
-	log.Fatal(http.ListenAndServe(":8082", nil))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", *p), nil))
 }
