@@ -25,11 +25,6 @@ func main() {
 	http.Handle("/cashBalanceHistory", account.CashBalanceHistoryHandler())
 	http.Handle("/accountValueHistory", account.AccountValueHistoryHandler())
 	http.Handle("/notes.json", notes.NotesHandler())
-	http.Handle("/static/",
-		http.StripPrefix("/static/",
-			http.FileServer(http.Dir("./static/"))))
-	serveSingle("/", "./static/dashboard.html")
-	serveSingle("/notes", "./static/notes.html")
 
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", *p), nil))
 }
