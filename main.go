@@ -18,7 +18,7 @@ func serveSingle(pattern string, filename string) {
 }
 
 func main() {
-	p := flag.Int("port", 80, "port on which to listen for web requests")
+	p := flag.Int("port", 8082, "port on which to listen for web requests")
 	flag.Parse()
 	log.Printf("starting up dashboard on port %d", *p)
 
