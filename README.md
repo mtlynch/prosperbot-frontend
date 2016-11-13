@@ -18,5 +18,6 @@
 ## Related Repositories
 
 * [gofn-prosper](https://github.com/mtlynch/gofn-prosper): The Go bindings that ProsperBot uses to communicate with the [Prosper API](https://developers.prosper.com/docs/investor/). Defines several types within the ProsperBot Frontend
-* [ansible-role-prosperbot-frontend](https://github.com/mtlynch/ansible-role-prosperbot-frontend): An Ansible role for installing ProsperBot Frontend to an Ubuntu server.
+* [ProsperBot](https://github.com/mtlynch/prosperbot): Backend ProsperBot logic.
 * [prosperbot-frontend-static](https://github.com/mtlynch/prosperbot-frontend-static): An AngularJS app that makes up the static portion of the ProsperBot Frontend.
+* [ansible-role-prosperbot-frontend](https://github.com/mtlynch/ansible-role-prosperbot-frontend): An Ansible role for installing ProsperBot Frontend to an Ubuntu server.
