@@ -7,7 +7,7 @@
 
 ## Overview
 
-[ProsperBot Frontend](https://github.com/mtlynch/prosperbot-frontend) is a web app front-end for ProsperBot that displays the state and activity of a [ProsperBot](https://github.com/mtlynch/prosperbot) instance.
+**ProsperBot Frontend** is a web app front-end for ProsperBot that displays the state and activity of a [ProsperBot](https://github.com/mtlynch/prosperbot) instance.
 
 ## Requirements
 
