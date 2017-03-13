@@ -73,7 +73,7 @@ func TestCashBalanceHistory(t *testing.T) {
 				},
 			},
 			wantSuccess: true,
-			msg:         "should return valid record when valid records exist",
+			msg:         "should return valid records when valid records exist",
 		},
 		{
 			accountList: []string{badJSON},
