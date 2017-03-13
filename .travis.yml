@@ -11,4 +11,4 @@ after_success: |
   $HOME/gopath/bin/goveralls \
     -service=travis-ci \
     -ignore="account/mock_redis_list_reader.go" \
-    -verbose
+    -v
