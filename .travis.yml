@@ -5,9 +5,10 @@ go:
   - 1.7.1
 before_install:
   - go get github.com/mattn/goveralls
-script: |
-  ./build \
-  && $HOME/gopath/bin/goveralls \
-      -service=travis-ci
-      -ignore="account/mock_redis_list_reader.go"
-      -verbose
+script:
+  - ./build
+after_success: |
+  $HOME/gopath/bin/goveralls \
+    -service=travis-ci
+    -ignore="account/mock_redis_list_reader.go"
+    -verbose
