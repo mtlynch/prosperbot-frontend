@@ -51,6 +51,8 @@ func accountRecordsToAccountAttributeRecords(accountRecords []redis.AccountRecor
 	return cashBalanceRecords
 }
 
+// collapseAccountAttributeRecords collapses the records in a slice to remove
+// sequences where the value does not change between adjacent records.
 func collapseAccountAttributeRecords(r []AccountAttributeRecord) []AccountAttributeRecord {
 	if len(r) <= 1 {
 		return r
