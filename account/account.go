@@ -2,7 +2,6 @@ package account
 
 import (
 	"encoding/json"
-	"errors"
 	"time"
 
 	"github.com/mtlynch/prosperbot/redis"
@@ -20,12 +19,15 @@ type (
 
 	accountAttributeFunc func(r redis.AccountRecord) float64
 
+	// AccountAttributeRecord represents a timestamped value-based property of the
+	// user's account (e.g. total value, cash balance).
 	AccountAttributeRecord struct {
 		Value     float64
 		Timestamp time.Time
 	}
 )
 
+// NewAccountInfoManager creates a new accountInfoManager.
 func NewAccountInfoManager() (accountInfoManager, error) {
 	r, err := redis.New()
 	if err != nil {
@@ -33,8 +35,6 @@ func NewAccountInfoManager() (accountInfoManager, error) {
 	}
 	return accountInfoManager{r}, nil
 }
-
-var ErrNoAccountRecords = errors.New("no record of account cash balance")
 
 func accountRecordToAccountAttributeRecord(r redis.AccountRecord, f accountAttributeFunc) AccountAttributeRecord {
 	return AccountAttributeRecord{
