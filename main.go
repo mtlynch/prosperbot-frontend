@@ -15,8 +15,13 @@ func main() {
 	flag.Parse()
 	log.Printf("starting up dashboard on port %d", *p)
 
-	http.Handle("/cashBalanceHistory", account.CashBalanceHistoryHandler())
-	http.Handle("/accountValueHistory", account.AccountValueHistoryHandler())
+	h, err := account.NewHandlers()
+	if err != nil {
+		log.Fatal(fmt.Sprintf("failed to initialize handlers: %v", err))
+	}
+	defer h.Close()
+	http.Handle("/cashBalanceHistory", h.CashBalanceHistoryHandler())
+	http.Handle("/accountValueHistory", h.AccountValueHistoryHandler())
 	http.Handle("/notes.json", notes.NotesHandler())
 
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", *p), nil))

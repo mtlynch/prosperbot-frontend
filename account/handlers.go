@@ -6,17 +6,25 @@ import (
 	"net/http"
 )
 
-type accountInfoFunc func(m accountInfoManager) (interface{}, error)
+type (
+	accountInfoFunc func(m accountInfoManager) (interface{}, error)
 
-func accountAttributeHandler(f accountInfoFunc) http.Handler {
+	Handlers struct {
+		AccountInfoManager accountInfoManager
+	}
+)
+
+func NewHandlers() (Handlers, error) {
+	m, err := NewAccountInfoManager()
+	if err != nil {
+		return Handlers{}, err
+	}
+	return Handlers{AccountInfoManager: m}, nil
+}
+
+func (h Handlers) accountAttributeHandler(f accountInfoFunc) http.Handler {
 	fn := func(w http.ResponseWriter, r *http.Request) {
-		cbm, err := NewAccountInfoManager()
-		if err != nil {
-			w.Write([]byte(fmt.Sprintf("failed to get account information: %v", err)))
-			return
-		}
-		defer cbm.Close()
-		b, err := f(cbm)
+		b, err := f(h.AccountInfoManager)
 		if err != nil {
 			w.Write([]byte(fmt.Sprintf("failed to get account information: %v", err)))
 			return
@@ -31,16 +39,20 @@ func accountAttributeHandler(f accountInfoFunc) http.Handler {
 	return http.HandlerFunc(fn)
 }
 
-func CashBalanceHistoryHandler() http.Handler {
-	return accountAttributeHandler(
+func (h Handlers) CashBalanceHistoryHandler() http.Handler {
+	return h.accountAttributeHandler(
 		func(m accountInfoManager) (interface{}, error) {
 			return m.CashBalanceHistory()
 		})
 }
 
-func AccountValueHistoryHandler() http.Handler {
-	return accountAttributeHandler(
+func (h Handlers) AccountValueHistoryHandler() http.Handler {
+	return h.accountAttributeHandler(
 		func(m accountInfoManager) (interface{}, error) {
 			return m.AccountValueHistory()
 		})
+}
+
+func (h *Handlers) Close() {
+	h.AccountInfoManager.Close()
 }
